@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         int startingSize = 4;
-        int maxSize = 5000;
+        int maxSize = 10000;
         int minValue = Integer.MIN_VALUE;
         int maxValue = Integer.MAX_VALUE;
 
@@ -29,48 +29,47 @@ public class Main {
         float previousTimeBrute = 1;
         float previousFasterTime = 1;
         float previousFastestTime = 1;
-        for(int N = startingSize; N < maxSize; N = N * 2) {
-            // Brute Force
 
-            System.out.print(String.format("%-20s", N));
-            // Datastructure setup.
+        for(int N = startingSize; N < maxSize; N = N * 2) {
+            // Formatting.
+            System.out.format("%-20s", N);
+
+            // Brute force search for 3sum.
             ThreeSum bruteForce = new ThreeSum(N);
             bruteForce.generateRandomList(minValue, maxValue);
-
             startTime = getCpuTime();
             bruteForce(bruteForce);
             endTime = getCpuTime();
-            System.out.print(String.format("%-20s", endTime - startTime));
-            System.out.print(String.format("%-20s",((endTime - startTime) / previousTimeBrute)));
+            System.out.format("%-20s", endTime - startTime);
+            System.out.format("%-20s",((endTime - startTime) / previousTimeBrute));
             previousTimeBrute = endTime - startTime;
-            System.out.print(String.format("%-20s","2"));
+                System.out.format("%-20s", (Math.pow(N, 3) / Math.pow(N/2, 3)));
 
-
-            // Datastructure setup.
+            // faster 3 sum search.
             ThreeSum faster = new ThreeSum(N);
             faster.generateRandomList(minValue, maxValue);
-            startTime = getCpuTime();
             faster.bubbleSortList();
             faster.removeDuplicates();
+            startTime = getCpuTime();
             fasterThreeSum(faster);
             endTime = getCpuTime();
-            System.out.print(String.format("%-20s", endTime - startTime));
-            System.out.print(String.format("%-20s",((endTime - startTime) / previousFasterTime)));
+            System.out.format("%-20s", endTime - startTime);
+            System.out.format("%-20s",((endTime - startTime) / previousFasterTime));
             previousFasterTime = endTime - startTime;
-            System.out.print(String.format("%-20s","2"));
+            System.out.format("%-20s", (Math.pow(N, 2)*Math.log(N)) / (Math.pow(N / 2, 2)*Math.log(N/2)));
 
-            // Datastructure setup.
+            // Fastest search.
             ThreeSum fastest = new ThreeSum(N);
             faster.generateRandomList(minValue, maxValue);
-            startTime = getCpuTime();
             fastest.bubbleSortList();
             fastest.removeDuplicates();
+            startTime = getCpuTime();
             fastestThreeSum(fastest, 0);
             endTime = getCpuTime();
-            System.out.print(String.format("%-20s", endTime - startTime));
-            System.out.print(String.format("%-20s",((endTime - startTime) / previousFasterTime)));
-            previousFasterTime = endTime - startTime;
-            System.out.print(String.format("%-20s","2"));
+            System.out.format("%-20s", endTime - startTime);
+            System.out.format("%-20s",((endTime - startTime) / previousFastestTime));
+            previousFastestTime = endTime - startTime;
+            System.out.format("%-20s", (Math.pow(N, 2) / Math.pow(N/2, 2)));
 
             System.out.println();
         }
